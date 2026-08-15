@@ -11,12 +11,13 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: [
-      'http://localhost:3000',
-      process.env.FRONTEND_URL || '',
-    ].filter(Boolean),
-    credentials: true,
-  });
+  origin: [
+    'http://localhost:3000',
+    'https://agewmidr.vercel.app',
+    'https://selam-barber.vercel.app',
+  ],
+  credentials: true,
+});
 
   app.setGlobalPrefix('api');
 
