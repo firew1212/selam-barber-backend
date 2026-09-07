@@ -1,4 +1,5 @@
 import {
+  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -18,6 +19,7 @@ export class JwtStrategy extends PassportStrategy(
   Strategy,
 ) {
   constructor(
+    @Inject(ConfigService)
     private readonly configService: ConfigService,
   ) {
     super({
