@@ -80,7 +80,6 @@ model Appointment {
   barber          Barber               @relation(fields: [barberId], references: [id])
   customer        Customer             @relation(fields: [customerId], references: [id])
   services        AppointmentService[]
-  payments        Payment[]
   queueEntry      QueueEntry?
   review          Review?
 
@@ -108,18 +107,6 @@ model QueueEntry {
   appointment   Appointment? @relation(fields: [appointmentId], references: [id])
   barber        Barber       @relation(fields: [barberId], references: [id])
   customer      Customer     @relation(fields: [customerId], references: [id])
-}
-
-model Payment {
-  id            String        @id @default(uuid())
-  appointmentId String
-  amount        Decimal       @db.Decimal(10, 2)
-  paymentType   PaymentType
-  paymentMethod PaymentMethod
-  status        PaymentStatus @default(PENDING)
-  paidAt        DateTime?
-  createdAt     DateTime      @default(now())
-  appointment   Appointment   @relation(fields: [appointmentId], references: [id], onDelete: Cascade)
 }
 
 model Review {
@@ -165,18 +152,3 @@ enum QueueStatus {
   NO_SHOW
 }
 
-enum PaymentType {
-  DEPOSIT
-  FINAL
-}
-
-enum PaymentMethod {
-  TELEBIRR
-  BANK_TRANSFER
-}
-
-enum PaymentStatus {
-  PENDING
-  PAID
-  FAILED
-}

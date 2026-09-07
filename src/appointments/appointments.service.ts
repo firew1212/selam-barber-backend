@@ -290,7 +290,6 @@ export class AppointmentsService {
         },
 
         queueEntry: true,
-        payments: true,
         review: true,
       },
 
@@ -337,7 +336,6 @@ export class AppointmentsService {
         },
 
         queueEntry: true,
-        payments: true,
         review: true,
       },
 
@@ -389,7 +387,6 @@ export class AppointmentsService {
           },
 
           queueEntry: true,
-          payments: true,
           review: true,
         },
       });

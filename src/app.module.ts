@@ -12,7 +12,6 @@ import { ServicesModule } from './services/services.module';
 import { BarbersModule } from './barbers/barbers.module';
 import { AppointmentsModule } from './appointments/appointments.module';
 import { QueueModule } from './queue/queue.module';
-import { PaymentsModule } from './payments/payments.module';
 import { ReviewsModule } from './reviews/reviews.module';
 import { AdminModule } from './admin/admin.module';
 import { RemindersModule } from './reminders/reminders.module';
@@ -33,7 +32,6 @@ import { CustomerModule } from './customer/customer.module';
     BarbersModule,
     AppointmentsModule,
     QueueModule,
-    PaymentsModule,
     ReviewsModule,
     AdminModule,
     RemindersModule,

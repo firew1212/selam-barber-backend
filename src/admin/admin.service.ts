@@ -25,8 +25,6 @@ export class AdminService {
       activeServices,
       totalAppointments,
       todayAppointments,
-      pendingPayments,
-      totalRevenue,
       totalReviews,
     ] = await Promise.all([
       this.prisma.user.count(),
@@ -60,21 +58,6 @@ export class AdminService {
         },
       }),
 
-      this.prisma.payment.count({
-        where: {
-          status: 'PENDING',
-        },
-      }),
-
-      this.prisma.payment.aggregate({
-        where: {
-          status: 'PAID',
-        },
-        _sum: {
-          amount: true,
-        },
-      }),
-
       this.prisma.review.count(),
     ]);
 
@@ -98,11 +81,6 @@ export class AdminService {
       appointments: {
         total: totalAppointments,
         today: todayAppointments,
-      },
-
-      payments: {
-        pending: pendingPayments,
-        revenue: totalRevenue._sum.amount ?? 0,
       },
 
       reviews: {
@@ -339,7 +317,6 @@ export class AdminService {
         },
 
         queueEntry: true,
-        payments: true,
         review: true,
       },
 
@@ -400,47 +377,6 @@ export class AdminService {
           queuePosition: 'asc',
         },
       ],
-    });
-  }
-
-  // ============================================================
-  // PAYMENTS
-  // ============================================================
-
-  async getPayments() {
-    return this.prisma.payment.findMany({
-      include: {
-        appointment: {
-          include: {
-            customer: {
-              include: {
-                user: {
-                  select: {
-                    id: true,
-                    fullName: true,
-                    phoneNumber: true,
-                  },
-                },
-              },
-            },
-
-            barber: {
-              include: {
-                user: {
-                  select: {
-                    id: true,
-                    fullName: true,
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-
-      orderBy: {
-        createdAt: 'desc',
-      },
     });
   }
 
